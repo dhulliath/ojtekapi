@@ -1,6 +1,7 @@
 const express = require('express')
 const jsonfile = require('jsonfile')
 const randomstring = require('randomstring')
+const fs = require('fs')
 
 var ojtek = {
     app: express(),
@@ -14,7 +15,8 @@ var ojtek = {
             if (err) {
                 console.log('no variable file; generating')
                 ojtek.config = {
-                    'gitSecret': randomstring.generate(64)
+                    'gitSecret': randomstring.generate(64),
+                    'listenPort': 3000
                 }
                 ojtek.saveVariables()
             } else {
@@ -32,7 +34,7 @@ ojtek.loadVariables()
 
 //load modules
 var normalizedPath = require("path").join(__dirname, "modules");
-require("fs").readdirSync(normalizedPath).forEach(function(file) {
+fs.readdirSync(normalizedPath).forEach(function(file) {
     console.log('loading module: ' + file)
     require("./modules/" + file).init(ojtek);
 });
