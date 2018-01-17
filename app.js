@@ -38,11 +38,23 @@ fs.readdirSync(normalizedPath).forEach(function(file) {
     require("./modules/" + file).init(ojtek);
 });
 
-//create git update loader
+if (isNaN(parseInt(ojtek.config.listenPort))) {
+fs.stat(ojtek.config.listenPort, function(err) {
+    if (!err) {fs.unlinkSync(ojtek.config.listenPort) }
+    ojtek.app.listen(ojtek.config.listenPort, () => {
+        fs.chmodSync(ojtek.config.listenPort, '775')
+        console.log('server is listening')
+    })
+})
+} else {
+    ojtek.app.listen(ojtek.config.listenPort, ()=> {
+        console.log('server is listening')
+    })
+}
 
-if (!Number.isInteger(ojtek.config.listenPort)) {
+/*if (!Number.isInteger(ojtek.config.listenPort)) {
     fs.unlink(ojtek.config.listenPort)
 }
 ojtek.app.listen(ojtek.config.listenPort, () => {
     console.log('server is listening')
-})
+})*/
