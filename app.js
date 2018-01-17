@@ -43,12 +43,12 @@ fs.stat(ojtek.config.listenPort, function(err) {
     if (!err) {fs.unlinkSync(ojtek.config.listenPort) }
     ojtek.app.listen(ojtek.config.listenPort, () => {
         fs.chmodSync(ojtek.config.listenPort, '775')
-        console.log('server is listening')
+        console.log('server is listening on ' + ojtek.config.listenPort)
     })
 })
 } else {
     ojtek.app.listen(ojtek.config.listenPort, ()=> {
-        console.log('server is listening')
+        console.log('server is listening on ' + ojtek.config.listenPort)
     })
 }
 
