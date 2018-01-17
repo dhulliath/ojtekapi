@@ -41,7 +41,9 @@ fs.readdirSync(normalizedPath).forEach(function(file) {
 
 //create git update loader
 
-
-ojtek.app.listen(3000, () => {
+if (!Number.isInteger(ojtek.config.listenPort)) {
+    fs.unlink(ojtek.config.listenPort)
+}
+ojtek.app.listen(ojtek.config.listenPort, () => {
     console.log('server is listening')
 })
