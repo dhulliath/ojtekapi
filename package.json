@@ -6,14 +6,17 @@
   "dependencies": {
     "coordinate-tz": "^0.1.2",
     "express": "^4.16.2",
+    "jsonfile": "^4.0.0",
     "moment-timezone": "^0.5.14",
+    "randomstring": "^1.1.5",
     "swisseph": "^0.5.8",
     "zoneinfo": "^0.1.8"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "update": "git pull"
+    "update": "git pull",
+    "start": "node app.js"
   },
   "author": "Peter Olejniczak",
   "license": "ISC"
