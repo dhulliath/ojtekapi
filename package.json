@@ -1,0 +1,20 @@
+{
+  "name": "ojtek-api",
+  "version": "1.0.0",
+  "description": "api for ojtek backend",
+  "main": "app.js",
+  "dependencies": {
+    "coordinate-tz": "^0.1.2",
+    "express": "^4.16.2",
+    "moment-timezone": "^0.5.14",
+    "swisseph": "^0.5.8",
+    "zoneinfo": "^0.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update": "git pull"
+  },
+  "author": "Peter Olejniczak",
+  "license": "ISC"
+}
