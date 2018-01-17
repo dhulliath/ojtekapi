@@ -9,15 +9,14 @@ var ojtek = {
         'variables': '.appvariables.json',
         'unixsocket': '/var/run/ojtekapi.sock'
     },
-    config: {},
+    config: {
+        'gitSecret': randomstring.generate(64),
+        'listenPort': 3000
+    },
     loadVariables: function() {
         jsonfile.readFile(ojtek.files.variables, (err, obj) => {
             if (err) {
                 console.log('no variable file; generating')
-                ojtek.config = {
-                    'gitSecret': randomstring.generate(64),
-                    'listenPort': 3000
-                }
                 ojtek.saveVariables()
             } else {
                 ojtek.config = obj
