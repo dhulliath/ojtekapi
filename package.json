@@ -19,7 +19,8 @@
     "preupstart": "npm install",
     "upstart": "npm start",
     "start": "node app.js",
-    "auto": "git pull && npm run upstart"
+    "gitupdate": "git fetch && git pull",
+    "auto": "npm run gitupdate && npm run upstart"
   },
   "author": "Peter Olejniczak",
   "license": "ISC"
