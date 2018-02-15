@@ -8,13 +8,16 @@ const worker = {}
 
 worker.app = express();
 
+worker.end = false
+
 worker.logger = require('./logger.js')(process.pid)
 
 worker.ttl = parseInt(process.env.workerLifeMin) + Math.floor(Math.random() * parseInt(process.env.workerLifeVar))
 
 worker.increment = function() {
     worker.ttl--
-    if (worker.ttl <= 0 ) {
+    if (worker.ttl <= 0 && worker.end == false ) {
+        worker.end = true
         worker.endWorker()
     }
 }
@@ -27,7 +30,6 @@ worker.increment = function() {
 worker.endWorker = function() {
     worker.logger.log('ending worker', consts.log.info)
     cluster.worker.disconnect()
-    process.exit()
 }
 
 worker.loadModules = function() {

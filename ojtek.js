@@ -60,6 +60,7 @@ cluster.on('message', (worker, message, handle) => {
     }
 })
 cluster.on('disconnect', (worker) => {
+    worker.kill()
     ojtek.spawnWorker()
 })
 

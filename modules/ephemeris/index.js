@@ -129,6 +129,7 @@ ojmod.prototype.init = function (ojtek) {
         }
 
         res.send(returnData)
+        ojtek.increment()
         return true
     })
 }
