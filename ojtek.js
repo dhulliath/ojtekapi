@@ -4,30 +4,28 @@ const fs = require('fs-extra')
 const randomstring = require('randomstring')
 const numCPU = 1//require('os').cpus().length;
 
-//cluster.setupMaster({exec: './worker.js'});
-
-const ojtek = {}
+const ojtek = {};
 
 ojtek.hardcoded = {
     'configfile': '.appvariables.json'
 }
-
-ojtek.workers = []
 
 ojtek.config = {
     'gitSecret': randomstring.generate(64),
     'listenPort': 3000,
     'listenHost': '127.0.0.1'
 }
-
+    
 ojtek.config.load = function() {
     return new Promise((resolve, reject) => {
-        fs.readFile(ojtek.hardcoded.configfile)
-        .then((data) => {
-            var parsed = JSON.parse(data.toString('utf8'));
-            ojtek.config = deepmerge(ojtek.config, parsed);
-            resolve();
-        })
+        try {
+        var parsed = JSON.parse(fs.readFileSync(ojtek.hardcoded.configfile, 'utf8'));
+        ojtek.config = deepmerge(ojtek.config, parsed);
+        } catch (err) {
+            console.trace()
+            reject(err)
+        }
+        resolve();
     });
 }
 
@@ -37,14 +35,25 @@ ojtek.config.save = function() {
 
 ojtek.init = function() {
     if (cluster.isMaster) {
-        ojtek.config.save()
+        cluster.setupMaster({
+            exec: './worker.js'
+        })
+        //ojtek.config.save()
         for (var i = 0; i < numCPU; i++) {
             cluster.fork(ojtek.config);
         }
     }
-    if (cluster.isWorker) {
+    /*if (cluster.isWorker) {
         require('./worker.js').run();
-    }
+    }*/
 }
+
+cluster.on('message', (worker, message, handle) => {
+    if (message.type == 'command') {
+        if (message.command == 'exit') {
+            process.exit()
+        }
+    }
+})
 
 module.exports = ojtek;

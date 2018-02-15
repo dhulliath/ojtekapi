@@ -4,6 +4,10 @@ const fs = require('fs-extra')
 
 const worker = {}
 
+worker.app = express();
+
+worker.logger = require('./logger.js')(process.pid)
+
 worker.loadModules = function() {
     var promises = [];
     fs.readdir('./modules/').then((items) => {
@@ -18,7 +22,7 @@ worker.loadModule = function(modName) {
     return new Promise(function (resolve, reject) {
         try {
             var mod = require('./modules/' + modName);
-            console.log(process.pid + ' loaded: ' + modName);
+            worker.logger.log('loaded module: ' + modName);
             mod.init(worker);
         } catch (err) {
             reject(err);
@@ -28,8 +32,12 @@ worker.loadModule = function(modName) {
 }
 
 worker.run = function() {
-    worker.app = express();
+    
     worker.loadModules();
+    worker.app.listen(process.env.listenPort);
+    worker.logger.log('spawned worker')
 }
+
+worker.run();
 
 module.exports = worker;
