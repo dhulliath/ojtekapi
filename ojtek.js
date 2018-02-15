@@ -2,7 +2,7 @@ const cluster = require('cluster')
 const deepmerge = require('deepmerge')
 const fs = require('fs-extra')
 const randomstring = require('randomstring')
-const numCPU = 1//require('os').cpus().length;
+const numCPU = require('os').cpus().length;
 
 const ojtek = {};
 
@@ -38,14 +38,10 @@ ojtek.init = function() {
         cluster.setupMaster({
             exec: './worker.js'
         })
-        //ojtek.config.save()
         for (var i = 0; i < numCPU; i++) {
             cluster.fork(ojtek.config);
         }
     }
-    /*if (cluster.isWorker) {
-        require('./worker.js').run();
-    }*/
 }
 
 cluster.on('message', (worker, message, handle) => {
