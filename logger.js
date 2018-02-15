@@ -1,9 +1,14 @@
 //const colors = require('colors');
 
-const logger = function(name) {
+const consts = require('./constants.js')
+
+const logger = function (name) {
     return {
-        log: function(message) {
-        console.log('['+name+'] '+message);}
+        log: function (message, priority = consts.log.debug) {
+            if (priority <= process.env.logLevel) {
+                console.log('[' + name + '] ' + message);
+            }
+        }
     }
 }
 

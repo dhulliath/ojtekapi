@@ -11,6 +11,7 @@ ojmodule.init = function (ojtek) {
             process.send({type:'command',command:'exit'})
         }
         res.send()
+        
     })
 }
 
