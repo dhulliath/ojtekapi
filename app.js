@@ -3,4 +3,5 @@ const jsonfile = require('jsonfile')
 
 global.ojtek = require(__dirname + '/ojtek.js');
 
-ojtek.init()
+ojtek.config.load()
+.then(ojtek.init())

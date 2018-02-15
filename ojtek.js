@@ -2,11 +2,11 @@ const cluster = require('cluster')
 const deepmerge = require('deepmerge')
 const fs = require('fs-extra')
 const randomstring = require('randomstring')
-const numCPU = require('os').cpus().length;
+const numCPU = 1//require('os').cpus().length;
 
-cluster.setupMaster({exec: './worker.js'});
+//cluster.setupMaster({exec: './worker.js'});
 
-//const ojtek = {}
+const ojtek = {}
 
 ojtek.hardcoded = {
     'configfile': '.appvariables.json'
@@ -21,9 +21,13 @@ ojtek.config = {
 }
 
 ojtek.config.load = function() {
-    return fs.readFile(ojtek.hardcoded.configfile).then((data) => {
-        var parsed = JSON.parse(data.toString('utf8'));
-        ojtek.config = deepmerge(ojtek.config, parsed);
+    return new Promise((resolve, reject) => {
+        fs.readFile(ojtek.hardcoded.configfile)
+        .then((data) => {
+            var parsed = JSON.parse(data.toString('utf8'));
+            ojtek.config = deepmerge(ojtek.config, parsed);
+            resolve();
+        })
     });
 }
 
@@ -33,9 +37,13 @@ ojtek.config.save = function() {
 
 ojtek.init = function() {
     if (cluster.isMaster) {
+        ojtek.config.save()
         for (var i = 0; i < numCPU; i++) {
-            ojtek.workers.push(cluster.fork());
+            cluster.fork(ojtek.config);
         }
+    }
+    if (cluster.isWorker) {
+        require('./worker.js').run();
     }
 }
 
