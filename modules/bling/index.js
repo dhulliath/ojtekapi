@@ -1,11 +1,8 @@
 const ojmodule = {}
 
-ojmodule.init = function(worker) {
-    worker.app.get('/bling/', (req, res) => {
-        worker.logger.log("blinged " + worker.ttl)
-        res.send(`${process.pid}: ${worker.ttl}`)
-
-        worker.increment();
+ojmodule.express = function(app) {
+    app.get('/bling/', (req, res) => {
+        res.send('bedazzle')
     })
 }
 

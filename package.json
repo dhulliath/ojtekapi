@@ -4,6 +4,7 @@
   "description": "api for ojtek backend",
   "main": "app.js",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "coordinate-tz": "^0.1.2",
     "deepmerge": "^2.0.1",
     "express": "^4.16.2",

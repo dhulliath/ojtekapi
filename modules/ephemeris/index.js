@@ -2,10 +2,10 @@ const swisseph = require('swisseph')
 const coordinateTZ = require('coordinate-tz')
 const moment = require('moment-timezone')
 
-const ojmod = function () {}
+const ojmod = {}
 
-ojmod.prototype.init = function (ojtek) {
-    ojtek.app.get('/ephemeris/', (req, res) => {
+ojmod.express = function (app) {
+    app.get('/ephemeris/', (req, res) => {
         /*//set sweph data path */
         swisseph.swe_set_ephe_path(__dirname + '\\ephe')
         var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH
@@ -57,7 +57,7 @@ ojmod.prototype.init = function (ojtek) {
         }
 
         //sanity check date
-        if (!this.isDate(queryData.date.year, queryData.date.month, queryData.date.day)) {
+        if (!isDate(queryData.date.year, queryData.date.month, queryData.date.day)) {
             returnData.addError('date', 'invalid')
         }
         //sanity check hour
@@ -129,11 +129,11 @@ ojmod.prototype.init = function (ojtek) {
         }
 
         res.send(returnData)
-        ojtek.increment()
+        //ojtek.increment()
         return true
     })
 }
-ojmod.prototype.isDate = function (y, m, d) {
+function isDate(y, m, d) {
     var date = new Date(y, m - 1, d);
     var convertedDate =
         "" + date.getFullYear() + (date.getMonth() + 1) + date.getDate();
@@ -142,4 +142,4 @@ ojmod.prototype.isDate = function (y, m, d) {
 }
 
 
-module.exports = new ojmod()
+module.exports = ojmod
