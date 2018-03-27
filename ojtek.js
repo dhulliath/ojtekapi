@@ -27,9 +27,10 @@ ojtek.loadModules = function () {
         for (key in items) {
             //ojtek.modules[items[key]] = require('./modules/' + items[key])
             promises.push(
-                loadModule(items[key])/*.then((modd) => {
-                    ojtek.modules[items[key]] = modd;
-                })*/
+                loadModule(items[key])
+                /*.then((modd) => {
+                                    ojtek.modules[items[key]] = modd;
+                                })*/
             );
         }
     })
@@ -40,7 +41,7 @@ function loadModule(modName) {
     return new Promise(function (resolve, reject) {
         try {
             var mod = require('./modules/' + modName);
-            console.log('loading '+modName)
+            console.log('loading ' + modName)
             //worker.logger.log('loaded module: ' + modName, consts.log.module);
             resolve(mod)
         } catch (err) {
@@ -55,7 +56,7 @@ ojtek.getModuleAttr = function (attribute) {
     return new Promise((resolve, reject) => {
         try {
             var results = []
-            console.log('getting '+attribute)
+            console.log('getting ' + attribute)
             for (key in ojtek.modules) {
                 if (ojtek.modules[key].hasOwnProperty(attribute)) {
                     conole.log(ojtek.modules[key])
@@ -72,26 +73,16 @@ ojtek.getModuleAttr = function (attribute) {
 ojtek.config.load = function () {
     return ojtek.getModuleAttr('config').then((attr) => {
         try {
-        var defConfig = deepmerge(attr.push(ojtek.defConfig))
-        var data = fs.readFileSync(ojtek.hardcoded.configfile, 'utf8')
-        var parsed = JSON.parse(data)
-        ojtek.config = deepmerge(defConfig, parsed)
-        resolve()
-        } catch (err) {
-            reject(err)
-        }
-    })
-    /*return new Promise((resolve, reject) => {
-        try {
-            var defConfig = deepmerge(ojtek.getModuleAttr('config').push(ojtek.defConfig))
+            var defConfig = deepmerge(attr.push(ojtek.defConfig))
             var data = fs.readFileSync(ojtek.hardcoded.configfile, 'utf8')
-            var parsed = JSON.parse(data);
-            ojtek.config = deepmerge(defConfig, parsed);
+            var parsed = JSON.parse(data)
+            ojtek.config = deepmerge(defConfig, parsed)
+            //resolve()
         } catch (err) {
-            console.trace('config load error')
-            reject(err)
+            //reject(err)
+            console.log(err)
         }
-        resolve();*/
+        return true
     })
 }
 
@@ -101,10 +92,13 @@ ojtek.config.save = function () {
 
 ojtek.init = function () {
     ojtek.loadModules()
-    .then(ojtek.config.load())
-    .finally(function() {
-        console.log(ojtek.config)
-    })
+        .then(ojtek.config.load())
+        .finally(function () {
+            console.log(ojtek.config)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 }
 
 ojtek.spawnWorker = function () {
