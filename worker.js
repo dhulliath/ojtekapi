@@ -1,12 +1,14 @@
 const cluster = require('cluster')
 const express = require('express')
 const fs = require('fs-extra')
+const cors = require('cors')
 
 global.consts = require('./constants.js')
 
 const worker = {}
 
 worker.app = express();
+worker.app.use(cors())
 
 worker.end = false
 

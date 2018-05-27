@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "coordinate-tz": "^0.1.2",
+    "cors": "^2.8.4",
     "deepmerge": "^2.0.1",
     "express": "^4.16.2",
     "fs-extra": "^5.0.0",
