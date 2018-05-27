@@ -56,6 +56,12 @@ ojmod.prototype.init = function (ojtek) {
             }
         }
 
+        //check for presencec of get vars
+        let checkVars = ['year','month','day']
+        for (key in checkVars) {
+            if (!req.query[checkVars[key]]) returnData.addError(checkVars[key], 'not present')
+        }
+
         //sanity check date
         if (!this.isDate(queryData.date.year, queryData.date.month, queryData.date.day)) {
             returnData.addError('date', 'invalid')

@@ -7,7 +7,9 @@ const numCPU = require('os').cpus().length;
 const ojtek = {};
 
 ojtek.hardcoded = {
-    'configfile': '.appvariables.json'
+    'execRoot': __dirname,
+    'configfile': '.appvariables.json',
+    'workerExec': 'worker.js'
 }
 
 ojtek.config = {
@@ -22,7 +24,7 @@ ojtek.config = {
 ojtek.config.load = function () {
     return new Promise((resolve, reject) => {
         try {
-            var data = fs.readFileSync(ojtek.hardcoded.configfile, 'utf8')
+            var data = fs.readFileSync(ojtek.hardcoded.execRoot + '/' + ojtek.hardcoded.configfile, 'utf8')
             var parsed = JSON.parse(data);
             ojtek.config = deepmerge(ojtek.config, parsed);
         } catch (err) {
@@ -34,13 +36,13 @@ ojtek.config.load = function () {
 }
 
 ojtek.config.save = function () {
-    return fs.writeFile(ojtek.hardcoded.configfile, JSON.stringify(ojtek.config, null, 2));
+    return fs.writeFile(ojtek.hardcoded.execRoot + '/' + ojtek.hardcoded.configfile, JSON.stringify(ojtek.config, null, 2));
 }
 
 ojtek.init = function () {
     if (cluster.isMaster) {
         cluster.setupMaster({
-            exec: './worker.js'
+            exec: ojtek.hardcoded.execRoot + '/' + ojtek.hardcoded.workerExec
         })
         for (var i = 0; i < numCPU; i++) {
             ojtek.spawnWorker()
