@@ -1,11 +1,12 @@
 const swisseph = require('swisseph')
 const coordinateTZ = require('coordinate-tz')
 const moment = require('moment-timezone')
+const cors = require('cors')
 
 const ojmod = function () {}
 
 ojmod.prototype.init = function (ojtek) {
-    ojtek.app.get('/ephemeris/', (req, res) => {
+    ojtek.app.get('/ephemeris/', cors(), (req, res) => {
         /*//set sweph data path */
         swisseph.swe_set_ephe_path(__dirname + '\\ephe')
         var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH
@@ -139,6 +140,7 @@ ojmod.prototype.init = function (ojtek) {
         return true
     })
 }
+
 ojmod.prototype.isDate = function (y, m, d) {
     var date = new Date(y, m - 1, d);
     var convertedDate =
