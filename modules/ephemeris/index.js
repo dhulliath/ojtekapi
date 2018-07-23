@@ -43,7 +43,11 @@ ojmod.prototype.init = function (ojtek) {
                     'neptune': swisseph.SE_NEPTUNE,
                     'pluto': swisseph.SE_PLUTO,
                     'northnode': swisseph.SE_TRUE_NODE,
-                    'blackmoonlilith': swisseph.SE_MEAN_APOG
+                    'blackmoonlilith': swisseph.SE_MEAN_APOG,
+                    'chiron': swisseph.SE_CHIRON,
+                    'juno': swisseph.SE_JUNO,
+                    'vesta': swisseph.SE_VESTA,
+                    'ceres': swisseph.SE_CERES
                 },
                 house: false
             }
