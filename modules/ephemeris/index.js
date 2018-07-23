@@ -20,8 +20,8 @@ ojmod.prototype.init = function (ojtek) {
                 minute: parseInt(req.query.minute) || 0
             },
             geo: {
-                latitude: parseInt(req.query.latitude),
-                longitude: parseInt(req.query.longitude)
+                latitude: parseFloat(req.query.latitude),
+                longitude: parseFloat(req.query.longitude)
             },
             eph: {
                 dateobj: '',
