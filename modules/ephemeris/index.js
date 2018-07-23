@@ -14,7 +14,7 @@ ojmod.prototype.init = function (ojtek) {
         let queryData = {
             date: {
                 year: parseInt(req.query.year),
-                month: parseInt(req.query.month),
+                month: parseInt(req.query.month) - 1,
                 day: parseInt(req.query.day),
                 hour: parseInt(req.query.hour) || 12,
                 minute: parseInt(req.query.minute) || 0
