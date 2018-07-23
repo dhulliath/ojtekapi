@@ -30,7 +30,7 @@ ojmod.prototype.init = function (ojtek) {
                 dategmt: {},
                 julian: '',
                 sidereal: '',
-                housemode: req.query.house || 'P'
+                housemode: '0'
             },
             returns: {
                 planet: {
