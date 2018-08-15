@@ -10,7 +10,7 @@ ojmod.prototype.init = function (ojtek) {
     ojtek.app.get('/ephemeris/', cors(), (req, res) => {
         /*//set sweph data path */
         swisseph.swe_set_ephe_path(path.normalize(__dirname + '/ephe'))
-        var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_SWIEPH
+        var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_SWIEPH | swisseph.SEFLG_TOPOCTR
         //var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH
 
         let queryData = {
@@ -70,7 +70,7 @@ ojmod.prototype.init = function (ojtek) {
         }
 
         //sanity check date
-        if (!this.isDate(queryData.date.year, queryData.date.month, queryData.date.day)) {
+        if (!this.isDate(queryData.date.year, queryData.date.month + 1, queryData.date.day)) {
             returnData.addError('date', 'invalid')
         }
         //sanity check hour
