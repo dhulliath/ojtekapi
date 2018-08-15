@@ -10,7 +10,7 @@ ojmod.prototype.init = function (ojtek) {
     ojtek.app.get('/ephemeris/', cors(), (req, res) => {
         /*//set sweph data path */
         swisseph.swe_set_ephe_path(path.normalize(__dirname + '/ephe'))
-        var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_SWIEPH | swisseph.SEFLG_TOPOCTR
+        var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_SWIEPH // | swisseph.SEFLG_TOPOCTR
         //var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_MOSEPH
 
         let queryData = {
