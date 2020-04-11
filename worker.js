@@ -8,7 +8,7 @@ global.consts = require('./constants.js')
 const worker = {}
 
 worker.app = express();
-worker.app.use(cors())
+//worker.app.use(cors())
 
 worker.end = false
 
