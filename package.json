@@ -4,16 +4,16 @@
   "description": "api for ojtek backend",
   "main": "app.js",
   "dependencies": {
-    "coordinate-tz": "^0.1.2",
-    "cors": "^2.8.4",
-    "deepmerge": "^2.0.1",
-    "express": "^4.16.2",
-    "fs-extra": "^5.0.0",
-    "loadtest": "^2.3.0",
-    "moment-timezone": "^0.5.14",
-    "randomstring": "^1.1.5",
-    "swisseph": "^0.5.8",
-    "zoneinfo": "^0.1.8"
+    "coordinate-tz": "latest",
+    "cors": "latest",
+    "deepmerge": "latest",
+    "express": "latest",
+    "fs-extra": "latest",
+    "loadtest": "latest",
+    "moment-timezone": "latest",
+    "randomstring": "latest",
+    "swisseph": "latest",
+    "zoneinfo": "latest"
   },
   "devDependencies": {},
   "scripts": {
