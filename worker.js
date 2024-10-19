@@ -36,7 +36,7 @@ worker.endWorker = function() {
 
 worker.loadModules = function() {
     var promises = [];
-    fs.readdir('./modules/').then((items) => {
+    fs.readdir('modules/').then((items) => {
         for (key in items) {
             promises.push(worker.loadModule(items[key]));
         }

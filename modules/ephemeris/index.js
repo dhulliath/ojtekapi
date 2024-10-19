@@ -7,7 +7,7 @@ const path = require('path')
 const ojmod = function () {}
 
 ojmod.prototype.init = function (ojtek) {
-    ojtek.app.get('/ephemeris/', cors(), (req, res) => {
+    ojtek.app.get('/ephemeris/', (req, res) => {
         /*//set sweph data path */
         swisseph.swe_set_ephe_path(path.normalize(__dirname + '/ephe'))
         var sFlags = swisseph.SEFLG_SPEED | swisseph.SEFLG_SWIEPH // | swisseph.SEFLG_TOPOCTR
