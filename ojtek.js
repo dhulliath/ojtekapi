@@ -8,7 +8,7 @@ const ojtek = {};
 
 ojtek.hardcoded = {
     'execRoot': __dirname,
-    'configfile': '.appvariables.json',
+    'configfile': 'appvariables.json',
     'workerExec': 'worker.js'
 }
 
