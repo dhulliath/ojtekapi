@@ -15,7 +15,7 @@ ojtek.hardcoded = {
 ojtek.config = {
     'gitSecret': randomstring.generate(64),
     'listenPort': 3000,
-    'listenHost': '127.0.0.1',
+    'listenHost': '0.0.0.0',
     'logLevel': 5,
     'workerLifeMin': 1000,
     'workerLifeVar': 1000
